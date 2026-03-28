@@ -9,6 +9,8 @@ import CategoriesPage from './pages/CategoriesPage'
 import ContactsPage from './pages/ContactsPage'
 import RecruitmentPage from './pages/RecruitmentPage'
 import RecruitmentFormPage from './pages/RecruitmentFormPage'
+import ProjectsPage from './pages/ProjectsPage'
+import ProjectFormPage from './pages/ProjectFormPage'
 import RegisterPage from './pages/RegisterPage'
 import UsersPage from './pages/UsersPage'
 
@@ -30,6 +32,9 @@ export default function App() {
         <Route path="articles/:id/edit" element={<ArticleFormPage />} />
         <Route path="categories" element={<CategoriesPage />} />
         <Route path="contacts" element={<ContactsPage />} />
+        <Route path="projects" element={<ProjectsPage />} />
+        <Route path="projects/create" element={<ProjectFormPage />} />
+        <Route path="projects/:id/edit" element={<ProjectFormPage />} />
         <Route path="recruitment" element={<RecruitmentPage />} />
         <Route path="recruitment/create" element={<RecruitmentFormPage />} />
         <Route path="recruitment/:id/edit" element={<RecruitmentFormPage />} />

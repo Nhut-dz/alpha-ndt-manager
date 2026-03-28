@@ -3,34 +3,70 @@ import { Link } from 'react-router-dom'
 import { Plus, Pencil, Trash2, Search } from 'lucide-react'
 import DataTable from '../components/ui/DataTable'
 import ConfirmDialog from '../components/ui/ConfirmDialog'
+import { recruitmentAPI } from '../services/api'
 
 const ITEMS_PER_PAGE = 10
 
-const MOCK_JOBS = [
-  { id: 1, title: 'NDT Engineer Level II', description: 'Perform non-destructive testing...', requirements: 'ASNT Level II, 3 years experience', salary: 'Negotiable', status: 1, created_at: '2026-03-15' },
-  { id: 2, title: 'UT Technician', description: 'Industrial ultrasonic inspection...', requirements: 'PCN Level II UT, English communication', salary: '15-25M VND', status: 1, created_at: '2026-03-10' },
-  { id: 3, title: 'Wind Energy Engineer', description: 'Wind turbine inspection...', requirements: 'GWO certified, no fear of heights', salary: '20-35M VND', status: 0, created_at: '2026-03-01' },
-]
-
 export default function RecruitmentPage() {
-  const [jobs, setJobs] = useState(MOCK_JOBS)
+  const [jobs, setJobs] = useState([])
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [deleteId, setDeleteId] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  const filtered = jobs.filter((j) => j.title.toLowerCase().includes(search.toLowerCase()))
+  const fetchJobs = () => {
+    setLoading(true)
+    recruitmentAPI.list().then((res) => {
+      setJobs(res.data.data || [])
+    }).catch(() => {}).finally(() => setLoading(false))
+  }
+
+  useEffect(() => { fetchJobs() }, [])
+
+  const filtered = jobs.filter((j) =>
+    j.title.toLowerCase().includes(search.toLowerCase()) ||
+    (j.position || '').toLowerCase().includes(search.toLowerCase())
+  )
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
 
-  const handleDelete = () => { setJobs(jobs.filter((j) => j.id !== deleteId)); setDeleteId(null) }
+  const handleDelete = async () => {
+    try {
+      await recruitmentAPI.delete(deleteId)
+      fetchJobs()
+    } catch {}
+    setDeleteId(null)
+  }
+
+  const statusLabel = (val) => {
+    if (val === 1) return { text: 'Active', cls: 'badge-success' }
+    if (val === 2) return { text: 'Closed', cls: 'badge-danger' }
+    return { text: 'Draft', cls: 'badge-warning' }
+  }
 
   const columns = [
     { key: 'id', label: 'ID' },
     { key: 'title', label: 'Position', render: (val) => <span className="font-medium">{val}</span> },
-    { key: 'salary', label: 'Salary' },
-    { key: 'status', label: 'Status', render: (val) => <span className={val === 1 ? 'badge-success' : 'badge-warning'}>{val === 1 ? 'Active' : 'Paused'}</span> },
-    { key: 'created_at', label: 'Posted', render: (val) => val ? new Date(val).toLocaleDateString('en-US') : '—' },
+    { key: 'department', label: 'Department', render: (val) => val || '—' },
+    { key: 'employment_type', label: 'Type', render: (val) => val || '—' },
+    { key: 'salary_range', label: 'Salary', render: (val) => val || 'Negotiable' },
+    { key: 'quantity', label: 'Qty' },
+    {
+      key: 'status', label: 'Status', render: (val) => {
+        const s = statusLabel(val)
+        return <span className={s.cls}>{s.text}</span>
+      }
+    },
+    { key: 'deadline', label: 'Deadline', render: (val) => val ? new Date(val).toLocaleDateString('vi-VN') : '—' },
   ]
+
+  if (loading) {
+    return (
+      <div className="flex justify-center py-20">
+        <div className="animate-spin h-8 w-8 border-4 border-brand-500 border-t-transparent rounded-full" />
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-6">

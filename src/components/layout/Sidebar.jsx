@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, FileText, FolderOpen, Mail, Briefcase, Users, UserPlus, X } from 'lucide-react'
+import { LayoutDashboard, FileText, FolderOpen, Mail, Briefcase, Users, UserPlus, X, Hammer } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 
 const navItems = [
@@ -7,6 +7,7 @@ const navItems = [
   { to: '/articles', icon: FileText, label: 'Articles' },
   { to: '/categories', icon: FolderOpen, label: 'Categories' },
   { to: '/contacts', icon: Mail, label: 'Contacts' },
+  { to: '/projects', icon: Hammer, label: 'Projects' },
   { to: '/recruitment', icon: Briefcase, label: 'Recruitment' },
   { to: '/users', icon: Users, label: 'Users', superOnly: true },
   { to: '/register', icon: UserPlus, label: 'Create Account', superOnly: true },

@@ -78,6 +78,56 @@ export const contactAPI = {
   delete: (id) => api.delete(`/contacts/${id}`),
 }
 
+// Projects
+export const projectAPI = {
+  list: (params = {}) => api.get('/projects', { params }),
+  get: (id) => api.get(`/projects/${id}`),
+  create: (data) => {
+    const fd = new FormData()
+    Object.entries(data).forEach(([k, v]) => {
+      if (v == null) return
+      if (Array.isArray(v)) {
+        v.forEach((item, i) => fd.append(`${k}[${i}]`, item))
+      } else {
+        fd.append(k, v)
+      }
+    })
+    return api.post('/projects', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+  },
+  update: (id, data) => {
+    const fd = new FormData()
+    fd.append('_method', 'PUT')
+    Object.entries(data).forEach(([k, v]) => {
+      if (v == null) return
+      if (Array.isArray(v)) {
+        v.forEach((item, i) => fd.append(`${k}[${i}]`, item))
+      } else {
+        fd.append(k, v)
+      }
+    })
+    return api.post(`/projects/${id}`, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+  },
+  delete: (id) => api.delete(`/projects/${id}`),
+}
+
+// Recruitments
+export const recruitmentAPI = {
+  list: (params = {}) => api.get('/recruitments', { params }),
+  get: (id) => api.get(`/recruitments/${id}`),
+  create: (data) => {
+    const fd = new FormData()
+    Object.entries(data).forEach(([k, v]) => { if (v != null) fd.append(k, v) })
+    return api.post('/recruitments', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+  },
+  update: (id, data) => {
+    const fd = new FormData()
+    fd.append('_method', 'PUT')
+    Object.entries(data).forEach(([k, v]) => { if (v != null) fd.append(k, v) })
+    return api.post(`/recruitments/${id}`, fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+  },
+  delete: (id) => api.delete(`/recruitments/${id}`),
+}
+
 // Admins (User Management - Super Admin only)
 export const adminAPI = {
   list: (params = {}) => api.get('/admins', { params }),
