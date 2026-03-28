@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, FileText, FolderOpen, Mail, Briefcase, X } from 'lucide-react'
+import { LayoutDashboard, FileText, FolderOpen, Mail, Briefcase, UserPlus, X } from 'lucide-react'
+import { useAuth } from '../../context/AuthContext'
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard', end: true },
@@ -7,9 +8,13 @@ const navItems = [
   { to: '/categories', icon: FolderOpen, label: 'Danh mục' },
   { to: '/contacts', icon: Mail, label: 'Liên hệ' },
   { to: '/recruitment', icon: Briefcase, label: 'Tuyển dụng' },
+  { to: '/register', icon: UserPlus, label: 'Tạo tài khoản', superOnly: true },
 ]
 
 export default function Sidebar({ open, onClose }) {
+  const { user } = useAuth()
+  const isSuperAdmin = user?.role === 'Super Admin'
+
   return (
     <aside className={`
       fixed inset-y-0 left-0 z-50 w-64 bg-surface-900 transform transition-transform duration-200
@@ -33,7 +38,7 @@ export default function Sidebar({ open, onClose }) {
 
       {/* Navigation */}
       <nav className="mt-6 px-3 space-y-1">
-        {navItems.map((item) => (
+        {navItems.filter((item) => !item.superOnly || isSuperAdmin).map((item) => (
           <NavLink
             key={item.to}
             to={item.to}

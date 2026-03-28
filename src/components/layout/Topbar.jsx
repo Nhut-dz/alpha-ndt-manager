@@ -19,7 +19,7 @@ export default function Topbar({ onMenuClick }) {
           </div>
           <div className="hidden sm:block">
             <p className="text-sm font-medium text-surface-700">{user?.name || 'Admin'}</p>
-            <p className="text-xs text-surface-400">{user?.role?.name || 'Administrator'}</p>
+            <p className="text-xs text-surface-400">{user?.role || 'Administrator'}</p>
           </div>
         </div>
         <button

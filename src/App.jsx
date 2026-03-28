@@ -9,6 +9,7 @@ import CategoriesPage from './pages/CategoriesPage'
 import ContactsPage from './pages/ContactsPage'
 import RecruitmentPage from './pages/RecruitmentPage'
 import RecruitmentFormPage from './pages/RecruitmentFormPage'
+import RegisterPage from './pages/RegisterPage'
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="recruitment" element={<RecruitmentPage />} />
         <Route path="recruitment/create" element={<RecruitmentFormPage />} />
         <Route path="recruitment/:id/edit" element={<RecruitmentFormPage />} />
+        <Route path="register" element={<RegisterPage />} />
       </Route>
     </Routes>
   )
