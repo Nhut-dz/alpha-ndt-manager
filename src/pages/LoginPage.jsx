@@ -32,8 +32,6 @@ export default function LoginPage() {
           <div className="inline-flex items-center justify-center bg-white/10 backdrop-blur rounded-2xl mb-4 px-4 py-3">
             <img src="/logo.png" alt="Alpha NDT" className="h-10 w-auto" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Alpha NDT</h1>
-          <p className="text-brand-200 mt-1">Admin Panel</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 space-y-5">
