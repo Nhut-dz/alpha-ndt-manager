@@ -20,7 +20,8 @@ export default function ArticleFormPage() {
       postAPI.get(id).then((res) => {
         const post = res.data.data
         setForm({ title: post.title, content: post.content, post_category_id: post.post_category_id, status: post.status, img: null })
-        if (post.img) setPreview(storageUrl(post.img))
+        if (post.img_url) setPreview(post.img_url)
+        else if (post.img) setPreview(storageUrl(post.img))
       }).catch(() => navigate('/articles'))
     }
   }, [id, isEdit, navigate])
