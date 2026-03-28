@@ -75,7 +75,7 @@ export default function ArticleFormPage() {
   }
 
   return (
-    <div className="max-w-3xl space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center gap-3">
         <button onClick={() => navigate('/articles')} className="p-2 rounded-lg hover:bg-surface-200 text-surface-500">
           <ArrowLeft size={20} />
