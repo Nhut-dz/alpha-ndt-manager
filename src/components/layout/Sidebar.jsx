@@ -18,15 +18,15 @@ export default function Sidebar({ open, onClose }) {
 
   return (
     <aside className={`
-      fixed inset-y-0 left-0 z-50 w-64 bg-surface-900 transform transition-transform duration-200
+      fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-surface-200 transform transition-transform duration-200
       lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}
     `}>
-      <div className="flex items-center justify-between h-20 px-4 border-b border-surface-700">
+      <div className="flex items-center justify-between h-20 px-4 border-b border-surface-200">
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Alpha NDT" className="h-16 w-auto" />
+          <img src="/logo-light.png" alt="Alpha NDT" className="h-16 w-auto" />
           <p className="text-surface-400 text-xs">Admin</p>
         </div>
-        <button onClick={onClose} className="lg:hidden text-surface-400 hover:text-white"><X size={20} /></button>
+        <button onClick={onClose} className="lg:hidden text-surface-500 hover:text-surface-800"><X size={20} /></button>
       </div>
 
       <nav className="mt-6 px-3 space-y-1">
@@ -38,7 +38,7 @@ export default function Sidebar({ open, onClose }) {
             onClick={onClose}
             className={({ isActive }) => `
               flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
-              ${isActive ? 'bg-brand-500/10 text-brand-400 border-r-2 border-brand-400' : 'text-surface-400 hover:bg-surface-800 hover:text-white'}
+              ${isActive ? 'bg-brand-50 text-brand-600 border-r-2 border-brand-500' : 'text-surface-600 hover:bg-surface-100 hover:text-surface-800'}
             `}
           >
             <item.icon size={20} />
@@ -47,8 +47,8 @@ export default function Sidebar({ open, onClose }) {
         ))}
       </nav>
 
-      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-surface-700">
-        <p className="text-surface-500 text-xs text-center">v1.0.0 — Alpha NDT Manager</p>
+      <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-surface-200">
+        <p className="text-surface-400 text-xs text-center">v1.0.0 — Alpha NDT Manager</p>
       </div>
     </aside>
   )
