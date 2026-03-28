@@ -30,7 +30,7 @@ export default function LoginPage() {
       <div className="w-full max-w-lg">
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-10 space-y-6">
           <div className="text-center pb-4 border-b border-surface-200">
-            <img src="/logo.png" alt="Alpha NDT" className="h-20 w-auto mx-auto mb-3" />
+            <img src="/logo-light.png" alt="Alpha NDT" className="h-24 w-auto mx-auto mb-3" />
             <h1 className="text-2xl font-bold text-surface-800">Admin Panel</h1>
           </div>
 
