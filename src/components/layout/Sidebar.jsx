@@ -23,11 +23,8 @@ export default function Sidebar({ open, onClose }) {
     `}>
       <div className="flex items-center justify-between h-16 px-6 border-b border-surface-700">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Alpha NDT" className="h-10 w-10 object-contain" />
-          <div>
-            <h1 className="text-white font-bold text-sm">Alpha NDT</h1>
-            <p className="text-surface-400 text-xs">Admin</p>
-          </div>
+          <img src="/logo.png" alt="Alpha NDT" className="h-9 w-auto" />
+          <p className="text-surface-400 text-xs">Admin</p>
         </div>
         <button onClick={onClose} className="lg:hidden text-surface-400 hover:text-white"><X size={20} /></button>
       </div>
