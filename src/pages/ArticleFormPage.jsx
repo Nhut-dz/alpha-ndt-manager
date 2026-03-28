@@ -89,7 +89,7 @@ export default function ArticleFormPage() {
         {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>}
 
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Title *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Title <span className="text-red-500">*</span></label>
           <input
             type="text"
             className="input-field"
@@ -101,7 +101,7 @@ export default function ArticleFormPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Category *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Category <span className="text-red-500">*</span></label>
           <select
             className="input-field"
             value={form.post_category_id}
@@ -116,7 +116,7 @@ export default function ArticleFormPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Content *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Content <span className="text-red-500">*</span></label>
           <div className="quill-wrapper">
             <ReactQuill
               theme="snow"

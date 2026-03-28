@@ -44,15 +44,15 @@ export default function RegisterPage() {
         {success && <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">{success}</div>}
 
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Full Name *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Full Name <span className="text-red-500">*</span></label>
           <input type="text" className="input-field" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Enter full name" required />
         </div>
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Email *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Email <span className="text-red-500">*</span></label>
           <input type="email" className="input-field" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="admin@alpha-ndt.com" required />
         </div>
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Role *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Role <span className="text-red-500">*</span></label>
           <select className="input-field" value={form.role_id} onChange={(e) => setForm({ ...form, role_id: e.target.value })} required>
             <option value="">Select role</option>
             {ROLES.map((role) => (<option key={role.id} value={role.id}>{role.name} — {role.label}</option>))}
@@ -62,7 +62,7 @@ export default function RegisterPage() {
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Password *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Password <span className="text-red-500">*</span></label>
           <div className="relative">
             <input type={showPw ? 'text' : 'password'} className="input-field pr-10" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} placeholder="Minimum 8 characters" minLength={8} required />
             <button type="button" className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-400 hover:text-surface-600" onClick={() => setShowPw(!showPw)}>
@@ -71,7 +71,7 @@ export default function RegisterPage() {
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Confirm Password *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Confirm Password <span className="text-red-500">*</span></label>
           <input type={showPw ? 'text' : 'password'} className="input-field" value={form.password_confirmation} onChange={(e) => setForm({ ...form, password_confirmation: e.target.value })} placeholder="Re-enter password" minLength={8} required />
         </div>
 
