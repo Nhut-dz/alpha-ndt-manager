@@ -78,4 +78,11 @@ export const contactAPI = {
   delete: (id) => api.delete(`/contacts/${id}`),
 }
 
+// Admins (User Management - Super Admin only)
+export const adminAPI = {
+  list: (params = {}) => api.get('/admins', { params }),
+  get: (id) => api.get(`/admins/${id}`),
+  updateStatus: (id, status) => api.patch(`/admins/${id}/status`, { status }),
+}
+
 export default api

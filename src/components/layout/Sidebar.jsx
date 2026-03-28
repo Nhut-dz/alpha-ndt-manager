@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, FileText, FolderOpen, Mail, Briefcase, UserPlus, X } from 'lucide-react'
+import { LayoutDashboard, FileText, FolderOpen, Mail, Briefcase, Users, UserPlus, X } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 
 const navItems = [
@@ -8,6 +8,7 @@ const navItems = [
   { to: '/categories', icon: FolderOpen, label: 'Danh mục' },
   { to: '/contacts', icon: Mail, label: 'Liên hệ' },
   { to: '/recruitment', icon: Briefcase, label: 'Tuyển dụng' },
+  { to: '/users', icon: Users, label: 'Người dùng', superOnly: true },
   { to: '/register', icon: UserPlus, label: 'Tạo tài khoản', superOnly: true },
 ]
 
