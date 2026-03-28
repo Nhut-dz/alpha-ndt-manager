@@ -46,7 +46,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="max-w-lg space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center gap-3">
         <button onClick={() => navigate('/')} className="p-2 rounded-lg hover:bg-surface-200 text-surface-500">
           <ArrowLeft size={20} />
