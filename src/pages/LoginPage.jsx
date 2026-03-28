@@ -19,7 +19,7 @@ export default function LoginPage() {
       await login(form.email, form.password, form.remember)
       navigate('/')
     } catch (err) {
-      setError(err.response?.data?.message || 'Đăng nhập thất bại')
+      setError(err.response?.data?.message || 'Login failed')
     } finally {
       setLoading(false)
     }
@@ -33,7 +33,7 @@ export default function LoginPage() {
             <span className="text-3xl font-bold text-white">α</span>
           </div>
           <h1 className="text-2xl font-bold text-white">Alpha NDT</h1>
-          <p className="text-brand-200 mt-1">Hệ thống quản trị</p>
+          <p className="text-brand-200 mt-1">Admin Panel</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 space-y-5">
@@ -56,7 +56,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-surface-700 mb-1.5">Mật khẩu</label>
+            <label className="block text-sm font-medium text-surface-700 mb-1.5">Password</label>
             <div className="relative">
               <input
                 type={showPw ? 'text' : 'password'}
@@ -80,14 +80,14 @@ export default function LoginPage() {
               checked={form.remember}
               onChange={(e) => setForm({ ...form, remember: e.target.checked })}
             />
-            <label htmlFor="remember" className="ml-2 text-sm text-surface-600">Ghi nhớ đăng nhập</label>
+            <label htmlFor="remember" className="ml-2 text-sm text-surface-600">Remember me</label>
           </div>
 
           <button type="submit" disabled={loading} className="btn-primary w-full justify-center py-2.5">
             {loading ? (
               <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
             ) : (
-              <><LogIn size={18} /> Đăng nhập</>
+              <><LogIn size={18} /> Sign In</>
             )}
           </button>
         </form>

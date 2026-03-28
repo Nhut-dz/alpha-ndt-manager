@@ -30,52 +30,50 @@ export default function DashboardPage() {
   }, [])
 
   const monthlyData = [
-    { name: 'T1', posts: 4, contacts: 12 },
-    { name: 'T2', posts: 6, contacts: 8 },
-    { name: 'T3', posts: 8, contacts: 15 },
-    { name: 'T4', posts: 3, contacts: 10 },
-    { name: 'T5', posts: 7, contacts: 9 },
-    { name: 'T6', posts: 5, contacts: 14 },
+    { name: 'Jan', posts: 4, contacts: 12 },
+    { name: 'Feb', posts: 6, contacts: 8 },
+    { name: 'Mar', posts: 8, contacts: 15 },
+    { name: 'Apr', posts: 3, contacts: 10 },
+    { name: 'May', posts: 7, contacts: 9 },
+    { name: 'Jun', posts: 5, contacts: 14 },
   ]
 
   const statusData = [
-    { name: 'Đã xử lý', value: stats.contacts - stats.pendingContacts },
-    { name: 'Chưa xử lý', value: stats.pendingContacts },
+    { name: 'Processed', value: stats.contacts - stats.pendingContacts },
+    { name: 'Pending', value: stats.pendingContacts },
   ]
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-surface-800">Dashboard</h1>
-        <p className="text-surface-500 text-sm mt-1">Tổng quan hệ thống Alpha NDT</p>
+        <p className="text-surface-500 text-sm mt-1">Alpha NDT System Overview</p>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatsCard icon={FileText} label="Tổng bài viết" value={stats.posts} color="brand" />
-        <StatsCard icon={Mail} label="Tổng liên hệ" value={stats.contacts} color="accent" />
-        <StatsCard icon={Mail} label="Chưa xử lý" value={stats.pendingContacts} color="purple" />
-        <StatsCard icon={Eye} label="Tổng lượt xem" value={stats.totalViews} color="green" />
+        <StatsCard icon={FileText} label="Total Articles" value={stats.posts} color="brand" />
+        <StatsCard icon={Mail} label="Total Contacts" value={stats.contacts} color="accent" />
+        <StatsCard icon={Mail} label="Pending" value={stats.pendingContacts} color="purple" />
+        <StatsCard icon={Eye} label="Total Views" value={stats.totalViews} color="green" />
       </div>
 
-      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 card">
-          <h3 className="font-semibold text-surface-800 mb-4">Thống kê theo tháng</h3>
+          <h3 className="font-semibold text-surface-800 mb-4">Monthly Statistics</h3>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={monthlyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis dataKey="name" tick={{ fontSize: 12, fill: '#64748b' }} />
               <YAxis tick={{ fontSize: 12, fill: '#64748b' }} />
               <Tooltip />
-              <Bar dataKey="posts" name="Bài viết" fill="#3b82f6" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="contacts" name="Liên hệ" fill="#f97316" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="posts" name="Articles" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="contacts" name="Contacts" fill="#f97316" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         <div className="card">
-          <h3 className="font-semibold text-surface-800 mb-4">Trạng thái liên hệ</h3>
+          <h3 className="font-semibold text-surface-800 mb-4">Contact Status</h3>
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
               <Pie data={statusData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
@@ -89,13 +87,12 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Recent Data */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card">
-          <h3 className="font-semibold text-surface-800 mb-4">Bài viết gần đây</h3>
+          <h3 className="font-semibold text-surface-800 mb-4">Recent Articles</h3>
           <div className="space-y-3">
             {recentPosts.length === 0 ? (
-              <p className="text-sm text-surface-400">Chưa có bài viết</p>
+              <p className="text-sm text-surface-400">No articles yet</p>
             ) : recentPosts.map((post) => (
               <div key={post.id} className="flex items-center justify-between py-2 border-b border-surface-100 last:border-0">
                 <div className="min-w-0">
@@ -103,7 +100,7 @@ export default function DashboardPage() {
                   <p className="text-xs text-surface-400">{post.admin?.name || 'Admin'} — {post.category?.name || ''}</p>
                 </div>
                 <span className={post.status === 1 ? 'badge-success' : 'badge-warning'}>
-                  {post.status === 1 ? 'Đã đăng' : 'Nháp'}
+                  {post.status === 1 ? 'Published' : 'Draft'}
                 </span>
               </div>
             ))}
@@ -111,10 +108,10 @@ export default function DashboardPage() {
         </div>
 
         <div className="card">
-          <h3 className="font-semibold text-surface-800 mb-4">Liên hệ gần đây</h3>
+          <h3 className="font-semibold text-surface-800 mb-4">Recent Contacts</h3>
           <div className="space-y-3">
             {recentContacts.length === 0 ? (
-              <p className="text-sm text-surface-400">Chưa có liên hệ</p>
+              <p className="text-sm text-surface-400">No contacts yet</p>
             ) : recentContacts.map((contact) => (
               <div key={contact.id} className="flex items-center justify-between py-2 border-b border-surface-100 last:border-0">
                 <div className="min-w-0">
@@ -122,7 +119,7 @@ export default function DashboardPage() {
                   <p className="text-xs text-surface-400">{contact.email}</p>
                 </div>
                 <span className={contact.status === 1 ? 'badge-success' : 'badge-warning'}>
-                  {contact.status === 1 ? 'Đã xử lý' : 'Mới'}
+                  {contact.status === 1 ? 'Processed' : 'New'}
                 </span>
               </div>
             ))}
