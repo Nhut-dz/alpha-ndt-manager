@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem('auth_token')
     if (token) {
       authAPI.profile()
-        .then((res) => setUser(res.data.data))
+        .then((res) => setUser(res.data.data.admin))
         .catch(() => localStorage.removeItem('auth_token'))
         .finally(() => setLoading(false))
     } else {

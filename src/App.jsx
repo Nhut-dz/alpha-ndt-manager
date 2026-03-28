@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage'
 import DashboardPage from './pages/DashboardPage'
 import ArticlesPage from './pages/ArticlesPage'
 import ArticleFormPage from './pages/ArticleFormPage'
+import CategoriesPage from './pages/CategoriesPage'
 import ContactsPage from './pages/ContactsPage'
 import RecruitmentPage from './pages/RecruitmentPage'
 import RecruitmentFormPage from './pages/RecruitmentFormPage'
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="articles" element={<ArticlesPage />} />
         <Route path="articles/create" element={<ArticleFormPage />} />
         <Route path="articles/:id/edit" element={<ArticleFormPage />} />
+        <Route path="categories" element={<CategoriesPage />} />
         <Route path="contacts" element={<ContactsPage />} />
         <Route path="recruitment" element={<RecruitmentPage />} />
         <Route path="recruitment/create" element={<RecruitmentFormPage />} />

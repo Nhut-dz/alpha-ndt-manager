@@ -26,7 +26,7 @@ export default function ArticlesPage() {
 
   const filtered = posts.filter((p) =>
     p.title?.toLowerCase().includes(search.toLowerCase()) ||
-    p.admin_name?.toLowerCase().includes(search.toLowerCase())
+    p.admin?.name?.toLowerCase().includes(search.toLowerCase())
   )
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE)
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
@@ -47,8 +47,21 @@ export default function ArticlesPage() {
       label: 'Tiêu đề',
       render: (val) => <span className="font-medium max-w-xs truncate block">{val}</span>,
     },
-    { key: 'category_name', label: 'Danh mục' },
-    { key: 'admin_name', label: 'Tác giả' },
+    {
+      key: 'category',
+      label: 'Danh mục',
+      render: (val) => val?.name || '—',
+    },
+    {
+      key: 'admin',
+      label: 'Tác giả',
+      render: (val) => val?.name || '—',
+    },
+    {
+      key: 'view',
+      label: 'Lượt xem',
+      render: (val) => val || 0,
+    },
     {
       key: 'status',
       label: 'Trạng thái',

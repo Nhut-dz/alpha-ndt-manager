@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Save, ArrowLeft, Image } from 'lucide-react'
-import { postAPI, categoryAPI } from '../services/api'
+import { postAPI, categoryAPI, storageUrl } from '../services/api'
 
 export default function ArticleFormPage() {
   const { id } = useParams()
@@ -20,7 +20,7 @@ export default function ArticleFormPage() {
       postAPI.get(id).then((res) => {
         const post = res.data.data
         setForm({ title: post.title, content: post.content, post_category_id: post.post_category_id, status: post.status, img: null })
-        if (post.img) setPreview(post.img)
+        if (post.img) setPreview(storageUrl(post.img))
       }).catch(() => navigate('/articles'))
     }
   }, [id, isEdit, navigate])

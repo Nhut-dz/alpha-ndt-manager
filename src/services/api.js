@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+const STORAGE_BASE = import.meta.env.VITE_STORAGE_URL || 'http://localhost:8000/storage'
 
 const api = axios.create({
   baseURL: API_BASE,
@@ -24,11 +25,23 @@ api.interceptors.response.use(
   }
 )
 
+// Helper: Build full image URL from storage path
+export function storageUrl(path) {
+  if (!path) return null
+  if (path.startsWith('http')) return path
+  return `${STORAGE_BASE}/${path}`
+}
+
 // Auth
 export const authAPI = {
   login: (data) => api.post('/auth/login', data),
+  register: (data) => api.post('/auth/register', data),
   logout: () => api.post('/auth/logout'),
   profile: () => api.get('/auth/profile'),
+  changePassword: (data) => api.post('/auth/change-password', data),
+  forgotPassword: (data) => api.post('/auth/forgot-password', data),
+  verifyOtp: (data) => api.post('/auth/verify-otp', data),
+  resetPassword: (data) => api.post('/auth/reset-password', data),
 }
 
 // Posts

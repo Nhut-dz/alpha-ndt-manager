@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, FileText, Mail, Briefcase, X } from 'lucide-react'
+import { LayoutDashboard, FileText, FolderOpen, Mail, Briefcase, X } from 'lucide-react'
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard', end: true },
   { to: '/articles', icon: FileText, label: 'Bài viết' },
+  { to: '/categories', icon: FolderOpen, label: 'Danh mục' },
   { to: '/contacts', icon: Mail, label: 'Liên hệ' },
   { to: '/recruitment', icon: Briefcase, label: 'Tuyển dụng' },
 ]

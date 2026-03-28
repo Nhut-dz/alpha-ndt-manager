@@ -7,7 +7,7 @@ import { postAPI, contactAPI } from '../services/api'
 const CHART_COLORS = ['#3b82f6', '#f97316', '#10b981', '#8b5cf6', '#ef4444']
 
 export default function DashboardPage() {
-  const [stats, setStats] = useState({ posts: 0, contacts: 0, pendingContacts: 0 })
+  const [stats, setStats] = useState({ posts: 0, contacts: 0, pendingContacts: 0, totalViews: 0 })
   const [recentPosts, setRecentPosts] = useState([])
   const [recentContacts, setRecentContacts] = useState([])
 
@@ -22,6 +22,7 @@ export default function DashboardPage() {
         posts: posts.length,
         contacts: contacts.length,
         pendingContacts: contacts.filter((c) => c.status === 0).length,
+        totalViews: posts.reduce((sum, p) => sum + (p.view || 0), 0),
       })
       setRecentPosts(posts.slice(0, 5))
       setRecentContacts(contacts.slice(0, 5))
@@ -51,10 +52,10 @@ export default function DashboardPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatsCard icon={FileText} label="Tổng bài viết" value={stats.posts} color="brand" change={12} />
-        <StatsCard icon={Mail} label="Tổng liên hệ" value={stats.contacts} color="accent" change={8} />
+        <StatsCard icon={FileText} label="Tổng bài viết" value={stats.posts} color="brand" />
+        <StatsCard icon={Mail} label="Tổng liên hệ" value={stats.contacts} color="accent" />
         <StatsCard icon={Mail} label="Chưa xử lý" value={stats.pendingContacts} color="purple" />
-        <StatsCard icon={Eye} label="Lượt truy cập" value="—" color="green" />
+        <StatsCard icon={Eye} label="Tổng lượt xem" value={stats.totalViews} color="green" />
       </div>
 
       {/* Charts */}
@@ -99,7 +100,7 @@ export default function DashboardPage() {
               <div key={post.id} className="flex items-center justify-between py-2 border-b border-surface-100 last:border-0">
                 <div className="min-w-0">
                   <p className="text-sm font-medium text-surface-700 truncate">{post.title}</p>
-                  <p className="text-xs text-surface-400">{post.admin_name || 'Admin'}</p>
+                  <p className="text-xs text-surface-400">{post.admin?.name || 'Admin'} — {post.category?.name || ''}</p>
                 </div>
                 <span className={post.status === 1 ? 'badge-success' : 'badge-warning'}>
                   {post.status === 1 ? 'Đã đăng' : 'Nháp'}
