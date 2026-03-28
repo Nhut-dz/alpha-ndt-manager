@@ -14,7 +14,7 @@ export default function StatsCard({ icon: Icon, label, value, change, color = 'b
           <p className="text-2xl font-bold text-surface-800 mt-1">{value}</p>
           {change && (
             <p className={`text-xs mt-1 ${change > 0 ? 'text-green-600' : 'text-red-500'}`}>
-              {change > 0 ? '↑' : '↓'} {Math.abs(change)}% so với tháng trước
+              {change > 0 ? '↑' : '↓'} {Math.abs(change)}% vs last month
             </p>
           )}
         </div>

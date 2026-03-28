@@ -14,8 +14,8 @@ export default function ConfirmDialog({ open, title, message, onConfirm, onCance
         </div>
         <p className="text-sm text-surface-600 mb-6">{message}</p>
         <div className="flex justify-end gap-3">
-          <button onClick={onCancel} className="btn-secondary">Hủy</button>
-          <button onClick={onConfirm} className="btn-danger">Xác nhận</button>
+          <button onClick={onCancel} className="btn-secondary">Cancel</button>
+          <button onClick={onConfirm} className="btn-danger">Confirm</button>
         </div>
       </div>
     </div>

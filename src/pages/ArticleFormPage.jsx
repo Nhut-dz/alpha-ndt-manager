@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Save, ArrowLeft, Image } from 'lucide-react'
 import ReactQuill from 'react-quill'
@@ -68,7 +68,7 @@ export default function ArticleFormPage() {
       }
       navigate('/articles')
     } catch (err) {
-      setError(err.response?.data?.message || 'Có lỗi xảy ra')
+      setError(err.response?.data?.message || 'An error occurred')
     } finally {
       setLoading(false)
     }
@@ -81,7 +81,7 @@ export default function ArticleFormPage() {
           <ArrowLeft size={20} />
         </button>
         <div>
-          <h1 className="text-2xl font-bold text-surface-800">{isEdit ? 'Sửa bài viết' : 'Thêm bài viết'}</h1>
+          <h1 className="text-2xl font-bold text-surface-800">{isEdit ? 'Edit Article' : 'Add Article'}</h1>
         </div>
       </div>
 
@@ -89,26 +89,26 @@ export default function ArticleFormPage() {
         {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>}
 
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Tiêu đề *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Title *</label>
           <input
             type="text"
             className="input-field"
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
-            placeholder="Nhập tiêu đề bài viết"
+            placeholder="Enter article title"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Danh mục *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Category *</label>
           <select
             className="input-field"
             value={form.post_category_id}
             onChange={(e) => setForm({ ...form, post_category_id: e.target.value })}
             required
           >
-            <option value="">Chọn danh mục</option>
+            <option value="">Select category</option>
             {categories.map((cat) => (
               <option key={cat.id} value={cat.id}>{cat.name}</option>
             ))}
@@ -116,7 +116,7 @@ export default function ArticleFormPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Nội dung *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Content *</label>
           <div className="quill-wrapper">
             <ReactQuill
               theme="snow"
@@ -124,42 +124,42 @@ export default function ArticleFormPage() {
               onChange={(value) => setForm({ ...form, content: value })}
               modules={quillModules}
               formats={quillFormats}
-              placeholder="Nhập nội dung bài viết..."
+              placeholder="Enter article content..."
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Hình ảnh</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Image</label>
           <div className="flex items-start gap-4">
             {preview && (
               <img src={preview} alt="Preview" className="w-24 h-24 rounded-lg object-cover border border-surface-200" />
             )}
             <label className="btn-secondary cursor-pointer">
-              <Image size={16} /> Chọn ảnh
+              <Image size={16} /> Choose Image
               <input type="file" accept="image/*" className="hidden" onChange={handleImage} />
             </label>
           </div>
-          <p className="text-xs text-surface-400 mt-1">Tối đa 2MB. JPG, PNG, WebP</p>
+          <p className="text-xs text-surface-400 mt-1">Max 2MB. JPG, PNG, WebP</p>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Trạng thái</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Status</label>
           <select
             className="input-field w-auto"
             value={form.status}
             onChange={(e) => setForm({ ...form, status: Number(e.target.value) })}
           >
-            <option value={1}>Đã đăng</option>
-            <option value={0}>Nháp</option>
+            <option value={1}>Published</option>
+            <option value={0}>Draft</option>
           </select>
         </div>
 
         <div className="flex justify-end gap-3 pt-4 border-t border-surface-200">
-          <button type="button" onClick={() => navigate('/articles')} className="btn-secondary">Hủy</button>
+          <button type="button" onClick={() => navigate('/articles')} className="btn-secondary">Cancel</button>
           <button type="submit" disabled={loading} className="btn-primary">
             {loading ? <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" /> : <Save size={16} />}
-            {isEdit ? 'Cập nhật' : 'Tạo bài viết'}
+            {isEdit ? 'Update' : 'Create Article'}
           </button>
         </div>
       </form>

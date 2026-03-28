@@ -22,11 +22,7 @@ export default function Topbar({ onMenuClick }) {
             <p className="text-xs text-surface-400">{user?.role || 'Administrator'}</p>
           </div>
         </div>
-        <button
-          onClick={logout}
-          className="text-surface-400 hover:text-red-500 transition-colors"
-          title="Đăng xuất"
-        >
+        <button onClick={logout} className="text-surface-400 hover:text-red-500 transition-colors" title="Sign Out">
           <LogOut size={20} />
         </button>
       </div>
