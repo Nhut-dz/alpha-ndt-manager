@@ -21,9 +21,9 @@ export default function Sidebar({ open, onClose }) {
       fixed inset-y-0 left-0 z-50 w-64 bg-surface-900 transform transition-transform duration-200
       lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}
     `}>
-      <div className="flex items-center justify-between h-16 px-6 border-b border-surface-700">
-        <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Alpha NDT" className="h-9 w-auto" />
+      <div className="flex items-center justify-between h-20 px-4 border-b border-surface-700">
+        <div className="flex items-center gap-2">
+          <img src="/logo.png" alt="Alpha NDT" className="h-16 w-auto" />
           <p className="text-surface-400 text-xs">Admin</p>
         </div>
         <button onClick={onClose} className="lg:hidden text-surface-400 hover:text-white"><X size={20} /></button>
