@@ -25,15 +25,15 @@ export default function RecruitmentFormPage() {
 
       <form onSubmit={handleSubmit} className="card space-y-5">
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Job Position *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Job Position <span className="text-red-500">*</span></label>
           <input type="text" className="input-field" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="e.g. NDT Engineer Level II" required />
         </div>
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Job Description *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Job Description <span className="text-red-500">*</span></label>
           <textarea className="input-field" rows={5} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Detailed job description..." required />
         </div>
         <div>
-          <label className="block text-sm font-medium text-surface-700 mb-1.5">Requirements *</label>
+          <label className="block text-sm font-medium text-surface-700 mb-1.5">Requirements <span className="text-red-500">*</span></label>
           <textarea className="input-field" rows={4} value={form.requirements} onChange={(e) => setForm({ ...form, requirements: e.target.value })} placeholder="Certifications, experience, skills..." required />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
