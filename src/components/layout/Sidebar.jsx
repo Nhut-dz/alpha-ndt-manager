@@ -23,9 +23,7 @@ export default function Sidebar({ open, onClose }) {
     `}>
       <div className="flex items-center justify-between h-16 px-6 border-b border-surface-700">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-accent-500 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">α</span>
-          </div>
+          <img src="/logo.png" alt="Alpha NDT" className="h-8 w-auto" />
           <div>
             <h1 className="text-white font-bold text-sm">Alpha NDT</h1>
             <p className="text-surface-400 text-xs">Admin</p>
