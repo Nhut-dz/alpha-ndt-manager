@@ -27,16 +27,16 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-600 via-brand-700 to-surface-900 px-4">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-lg">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center bg-white/10 backdrop-blur rounded-2xl mb-4 px-4 py-3">
-            <img src="/logo.png" alt="Alpha NDT" className="h-10 w-auto" />
+          <div className="inline-flex items-center justify-center bg-white/10 backdrop-blur rounded-2xl mb-4 px-6 py-4">
+            <img src="/logo.png" alt="Alpha NDT" className="h-16 w-auto" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Alpha NDT</h1>
-          <p className="text-brand-200 mt-1">Admin Panel</p>
+          <h1 className="text-3xl font-bold text-white">Alpha NDT</h1>
+          <p className="text-brand-200 mt-1 text-lg">Admin Panel</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-8 space-y-5">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-10 space-y-6">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
