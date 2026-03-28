@@ -1,7 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Save, ArrowLeft, Image } from 'lucide-react'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 import { postAPI, categoryAPI, storageUrl } from '../services/api'
+
+const quillModules = {
+  toolbar: [
+    [{ header: [1, 2, 3, 4, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ color: [] }, { background: [] }],
+    [{ align: [] }],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    ['blockquote', 'code-block'],
+    ['link', 'image'],
+    ['clean'],
+  ],
+}
+
+const quillFormats = [
+  'header', 'bold', 'italic', 'underline', 'strike',
+  'color', 'background', 'align',
+  'list', 'bullet', 'blockquote', 'code-block',
+  'link', 'image',
+]
 
 export default function ArticleFormPage() {
   const { id } = useParams()
@@ -95,14 +117,16 @@ export default function ArticleFormPage() {
 
         <div>
           <label className="block text-sm font-medium text-surface-700 mb-1.5">Nội dung *</label>
-          <textarea
-            className="input-field"
-            rows={10}
-            value={form.content}
-            onChange={(e) => setForm({ ...form, content: e.target.value })}
-            placeholder="Nhập nội dung bài viết..."
-            required
-          />
+          <div className="quill-wrapper">
+            <ReactQuill
+              theme="snow"
+              value={form.content}
+              onChange={(value) => setForm({ ...form, content: value })}
+              modules={quillModules}
+              formats={quillFormats}
+              placeholder="Nhập nội dung bài viết..."
+            />
+          </div>
         </div>
 
         <div>
