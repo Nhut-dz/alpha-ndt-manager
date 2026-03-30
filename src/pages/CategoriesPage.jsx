@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Plus, Pencil, Trash2, X, Save } from 'lucide-react'
 import ConfirmDialog from '../components/ui/ConfirmDialog'
 import { categoryAPI } from '../services/api'
+import { useToast } from '../context/ToastContext'
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([])
