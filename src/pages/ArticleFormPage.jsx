@@ -4,6 +4,7 @@ import { Save, ArrowLeft, Image } from 'lucide-react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { postAPI, categoryAPI, storageUrl } from '../services/api'
+import { useToast } from '../context/ToastContext'
 
 const quillModules = {
   toolbar: [
@@ -28,6 +29,7 @@ const quillFormats = [
 export default function ArticleFormPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { showSuccess, showError } = useToast()
   const isEdit = Boolean(id)
 
   const [form, setForm] = useState({ title: '', content: '', post_category_id: '', status: 1, img: null })
@@ -63,12 +65,16 @@ export default function ArticleFormPage() {
     try {
       if (isEdit) {
         await postAPI.update(id, form)
+        showSuccess('Article updated successfully')
       } else {
         await postAPI.create(form)
+        showSuccess('Article created successfully')
       }
       navigate('/articles')
     } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred')
+      const msg = err.response?.data?.message || 'An error occurred'
+      setError(msg)
+      showError(msg)
     } finally {
       setLoading(false)
     }

@@ -4,6 +4,7 @@ import { Save, ArrowLeft, Image } from 'lucide-react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { recruitmentAPI, storageUrl } from '../services/api'
+import { useToast } from '../context/ToastContext'
 
 const quillModules = {
   toolbar: [
@@ -18,6 +19,7 @@ const quillModules = {
 export default function RecruitmentFormPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { showSuccess, showError } = useToast()
   const isEdit = Boolean(id)
 
   const [form, setForm] = useState({
@@ -64,12 +66,16 @@ export default function RecruitmentFormPage() {
       if (!submitData.deadline) delete submitData.deadline
       if (isEdit) {
         await recruitmentAPI.update(id, submitData)
+        showSuccess('Job posting updated successfully')
       } else {
         await recruitmentAPI.create(submitData)
+        showSuccess('Job posting created successfully')
       }
       navigate('/recruitment')
     } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred')
+      const msg = err.response?.data?.message || 'An error occurred'
+      setError(msg)
+      showError(msg)
     } finally {
       setLoading(false)
     }

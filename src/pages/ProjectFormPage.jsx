@@ -4,6 +4,7 @@ import { Save, ArrowLeft, Image, Plus, X } from 'lucide-react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { projectAPI, storageUrl } from '../services/api'
+import { useToast } from '../context/ToastContext'
 
 const quillModules = {
   toolbar: [
@@ -30,6 +31,7 @@ const TAG_OPTIONS = ['Oil & Gas', 'Gas', 'Marine', 'Offshore', 'Subsea', 'Pipeli
 export default function ProjectFormPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { showSuccess, showError } = useToast()
   const isEdit = Boolean(id)
 
   const [form, setForm] = useState({
@@ -88,12 +90,16 @@ export default function ProjectFormPage() {
       if (!submitData.img) delete submitData.img
       if (isEdit) {
         await projectAPI.update(id, submitData)
+        showSuccess('Project updated successfully')
       } else {
         await projectAPI.create(submitData)
+        showSuccess('Project created successfully')
       }
       navigate('/projects')
     } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred')
+      const msg = err.response?.data?.message || 'An error occurred'
+      setError(msg)
+      showError(msg)
     } finally {
       setLoading(false)
     }

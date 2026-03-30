@@ -4,6 +4,7 @@ import { Plus, Pencil, Trash2, Search } from 'lucide-react'
 import DataTable from '../components/ui/DataTable'
 import ConfirmDialog from '../components/ui/ConfirmDialog'
 import { projectAPI, storageUrl } from '../services/api'
+import { useToast } from '../context/ToastContext'
 
 const ITEMS_PER_PAGE = 10
 
@@ -13,6 +14,7 @@ export default function ProjectsPage() {
   const [page, setPage] = useState(1)
   const [deleteId, setDeleteId] = useState(null)
   const [loading, setLoading] = useState(true)
+  const { showSuccess, showError } = useToast()
 
   const fetchProjects = () => {
     setLoading(true)
@@ -33,8 +35,11 @@ export default function ProjectsPage() {
   const handleDelete = async () => {
     try {
       await projectAPI.delete(deleteId)
+      showSuccess('Project deleted successfully')
       fetchProjects()
-    } catch {}
+    } catch (err) {
+      showError(err.response?.data?.message || 'Failed to delete project')
+    }
     setDeleteId(null)
   }
 

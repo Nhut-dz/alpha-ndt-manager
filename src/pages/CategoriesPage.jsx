@@ -11,6 +11,7 @@ export default function CategoriesPage() {
   const [form, setForm] = useState({ name: '', description: '', status: 1 })
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const { showSuccess, showError } = useToast()
 
   const fetchCategories = () => {
     setLoading(true)
@@ -28,14 +29,30 @@ export default function CategoriesPage() {
   const handleSave = async () => {
     setError(''); setSaving(true)
     try {
-      if (editItem.id) { await categoryAPI.update(editItem.id, form) } else { await categoryAPI.create(form) }
+      if (editItem.id) {
+        await categoryAPI.update(editItem.id, form)
+        showSuccess('Category updated successfully')
+      } else {
+        await categoryAPI.create(form)
+        showSuccess('Category created successfully')
+      }
       setEditItem(null); fetchCategories()
-    } catch (err) { setError(err.response?.data?.message || 'An error occurred') } finally { setSaving(false) }
+    } catch (err) {
+      const msg = err.response?.data?.message || 'An error occurred'
+      setError(msg)
+      showError(msg)
+    } finally { setSaving(false) }
   }
 
   const handleDelete = async () => {
     if (!deleteId) return
-    try { await categoryAPI.delete(deleteId); fetchCategories() } catch (err) { alert(err.response?.data?.message || 'Cannot delete this category') }
+    try {
+      await categoryAPI.delete(deleteId)
+      showSuccess('Category deleted successfully')
+      fetchCategories()
+    } catch (err) {
+      showError(err.response?.data?.message || 'Cannot delete this category')
+    }
     setDeleteId(null)
   }
 

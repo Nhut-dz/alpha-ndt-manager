@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Search, Eye, Lock, Unlock, X, ChevronLeft, ChevronRight, User } from 'lucide-react'
 import ConfirmDialog from '../components/ui/ConfirmDialog'
 import { adminAPI } from '../services/api'
+import { useToast } from '../context/ToastContext'
 
 export default function UsersPage() {
   const [users, setUsers] = useState([])
@@ -12,6 +13,7 @@ export default function UsersPage() {
   const [loading, setLoading] = useState(true)
   const [detail, setDetail] = useState(null)
   const [toggleUser, setToggleUser] = useState(null)
+  const { showSuccess, showError } = useToast()
 
   const fetchUsers = useCallback(() => {
     setLoading(true)
@@ -31,7 +33,13 @@ export default function UsersPage() {
   const handleViewDetail = async (user) => { try { const res = await adminAPI.get(user.id); setDetail(res.data.data) } catch { setDetail(user) } }
   const handleToggleStatus = async () => {
     if (!toggleUser) return
-    try { await adminAPI.updateStatus(toggleUser.id, toggleUser.status === 1 ? 0 : 1); fetchUsers() } catch (err) { alert(err.response?.data?.message || 'An error occurred') }
+    try {
+      await adminAPI.updateStatus(toggleUser.id, toggleUser.status === 1 ? 0 : 1)
+      showSuccess(toggleUser.status === 1 ? 'Account locked' : 'Account unlocked')
+      fetchUsers()
+    } catch (err) {
+      showError(err.response?.data?.message || 'An error occurred')
+    }
     setToggleUser(null)
   }
 

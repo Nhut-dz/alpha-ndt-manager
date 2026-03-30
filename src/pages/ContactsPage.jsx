@@ -3,6 +3,7 @@ import { Search, Eye, Trash2, CheckCircle, Clock, X } from 'lucide-react'
 import DataTable from '../components/ui/DataTable'
 import ConfirmDialog from '../components/ui/ConfirmDialog'
 import { contactAPI } from '../services/api'
+import { useToast } from '../context/ToastContext'
 
 const ITEMS_PER_PAGE = 10
 
@@ -13,6 +14,7 @@ export default function ContactsPage() {
   const [loading, setLoading] = useState(true)
   const [deleteId, setDeleteId] = useState(null)
   const [detail, setDetail] = useState(null)
+  const { showSuccess, showError } = useToast()
 
   const fetchContacts = () => {
     setLoading(true)
@@ -33,12 +35,24 @@ export default function ContactsPage() {
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
 
   const handleStatusToggle = async (contact) => {
-    try { await contactAPI.updateStatus(contact.id, contact.status === 1 ? 0 : 1); fetchContacts() } catch {}
+    try {
+      await contactAPI.updateStatus(contact.id, contact.status === 1 ? 0 : 1)
+      showSuccess(contact.status === 1 ? 'Marked as Pending' : 'Marked as Processed')
+      fetchContacts()
+    } catch (err) {
+      showError(err.response?.data?.message || 'Failed to update status')
+    }
   }
 
   const handleDelete = async () => {
     if (!deleteId) return
-    try { await contactAPI.delete(deleteId); fetchContacts() } catch {}
+    try {
+      await contactAPI.delete(deleteId)
+      showSuccess('Contact deleted successfully')
+      fetchContacts()
+    } catch (err) {
+      showError(err.response?.data?.message || 'Failed to delete contact')
+    }
     setDeleteId(null)
   }
 

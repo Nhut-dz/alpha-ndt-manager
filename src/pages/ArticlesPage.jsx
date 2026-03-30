@@ -4,6 +4,7 @@ import { Plus, Pencil, Trash2, Search } from 'lucide-react'
 import DataTable from '../components/ui/DataTable'
 import ConfirmDialog from '../components/ui/ConfirmDialog'
 import { postAPI } from '../services/api'
+import { useToast } from '../context/ToastContext'
 
 const ITEMS_PER_PAGE = 10
 
@@ -13,6 +14,7 @@ export default function ArticlesPage() {
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
   const [deleteId, setDeleteId] = useState(null)
+  const { showSuccess, showError } = useToast()
 
   const fetchPosts = () => {
     setLoading(true)
@@ -35,8 +37,11 @@ export default function ArticlesPage() {
     if (!deleteId) return
     try {
       await postAPI.delete(deleteId)
+      showSuccess('Article deleted successfully')
       fetchPosts()
-    } catch {}
+    } catch (err) {
+      showError(err.response?.data?.message || 'Failed to delete article')
+    }
     setDeleteId(null)
   }
 
